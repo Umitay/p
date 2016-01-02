@@ -47,7 +47,6 @@ import com.umi.common.utils.StringUtil;
 @Log
 @PermitAll
 public class ItemAdminServlet {
-
 	@Context HttpServletRequest request;
 	@Context HttpServletResponse response;
 	

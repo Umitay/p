@@ -28,13 +28,12 @@ import com.umi.common.data.Article;
 import com.umi.common.data.Category;
 import com.umi.common.data.Item;
 import com.umi.common.data.X_CategoryItem;
-import com.umi.common.data.persist.EnvironmentConfig;
 import com.umi.common.services.ArticleService;
 import com.umi.common.services.CategoryService;
 import com.umi.common.services.ItemService;
 import com.umi.common.utils.CustomException;
 import com.umi.common.utils.StringUtil;
-
+import com.umi.common.data.persist.EnvironmentConfig;
 @Path("/n/article")
 @Log
 @PermitAll
@@ -166,13 +165,13 @@ public class ArticleAdminServlet {
 		
 		List<Article> articles =  articleService.loadAll(Article.class);
 		
-		for(Article article:articles){
+		/*for(Article article:articles){
 			article.setMeta_title(EnvironmentConfig.getInstance().getMeta_link_title()+ article.getName());
 			article.setAlt(EnvironmentConfig.getInstance().getMeta_icon() + article.getName() );
 			article.setMeta_title(article.getName()+EnvironmentConfig.getInstance().getMeta_title());
 			article.setMeta_keywords(EnvironmentConfig.getInstance().getMeta_keywords()+ article.getName() );
 			article.setMeta_description(article.getAbout() + EnvironmentConfig.getInstance().getMeta_description());
-		}
+		}*/
 		
 		articleService.save(articles);
 	

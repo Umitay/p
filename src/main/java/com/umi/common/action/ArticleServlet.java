@@ -1,7 +1,10 @@
 package com.umi.common.action;
 
 import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.util.Collections;
+import java.util.Date;
 import java.util.List;
 
 import javax.annotation.security.PermitAll;
@@ -19,7 +22,10 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
+
+import org.apache.commons.lang3.time.DateFormatUtils;
 
 import lombok.extern.java.Log;
 
@@ -37,36 +43,45 @@ import com.umi.common.utils.StringUtil;
 @Path("/article")
 @Log
 @PermitAll
-public class ArticleServlet {
+public class ArticleServlet extends BaseServlet {
 
-	@Context HttpServletRequest request;
-	@Context HttpServletResponse response;
-	ArticleService articleService = new ArticleService(); 
-	
+	@GET
+	@Produces(MediaType.TEXT_HTML)
+	public Response index()throws IOException, ServletException{
+		log.info("1");
+		response.setStatus(Response.Status.BAD_REQUEST.getStatusCode());
+		request.getRequestDispatcher("/404.jsp").forward(request, response);
+		return Response.status(Response.Status.BAD_REQUEST.getStatusCode()).build();
+	}
 	
 	@Path("/{slug}")
 	@GET
-	public void view( @DefaultValue("") @PathParam("slug") String slug ) throws IOException {
+	public Response view(@PathParam("slug") String slug ) throws IOException, ServletException, URISyntaxException {
 		log.info("Start view");
-		if(slug.length() <=0 ){
-			response.sendRedirect("/");
-			throw new CustomException(Status.BAD_REQUEST, "Field 'slug' is missing.");
-		}
+		
 		if(request.getServerName().contains("appspot.com")){
 			request.setAttribute("unvisible", true);
 		}
-		
 		Article article =  articleService.loadArticle(slug); 
 		
-		List<Article> articles =  articleService.loadArticles(true);
-		CategoryService categoryService = new CategoryService(); 
-		List<Category> categories =  categoryService.loadTopCategories(); 
-		ItemService itemService = new ItemService(); 
-		List<Item>  items = itemService.loadItems(16,0);
-		Collections.shuffle(items);
-		
+		if( article == null ){
+			if(StringUtil.is_rus(slug) ){
+				slug = StringUtil.generateSlug(slug);
+				return Response.status(Response.Status.MOVED_PERMANENTLY).location(new URI("/article/"+slug)).build();
+			}
+
+			response.setStatus(Response.Status.NOT_FOUND.getStatusCode());
+			request.getRequestDispatcher("/404.jsp").forward(request, response);
+			return Response.status(Response.Status.NOT_FOUND.getStatusCode()).build();
+		}
 		
 		try {
+			Date d = new Date( article.getDatePublished() );
+			request.setAttribute("article_datePublished", DateFormatUtils.format(d,"yyyy-MM-dd"));
+			
+			Date dm = new Date( article.getDateModified() );
+			request.setAttribute("article_dateModified", DateFormatUtils.format(dm,"yyyy-MM-dd"));
+			
 			request.setAttribute("articles", articles);
 			request.setAttribute("article", article);
 			request.setAttribute("items", items);
@@ -74,7 +89,6 @@ public class ArticleServlet {
 			request.setAttribute("meta_title",   article.getMeta_title() );
 			request.setAttribute("meta_keywords", article.getMeta_keywords() );
 			request.setAttribute("meta_description", article.getMeta_description());
-		
 			request.getRequestDispatcher("/article/article.jsp").forward(request, response);
 			
 		} catch (ServletException | IOException e) {
@@ -82,20 +96,18 @@ public class ArticleServlet {
 			throw new CustomException(Status.NOT_FOUND, "Something went wrong.");
 		}
 		log.info("End view");
+		return Response.ok().build();
 	}
 	@Path("/list")
 	@GET
-	public void list( ) {
+	public Response list( ) {
 		log.info("Start list");
 		if(request.getServerName().contains("appspot.com")){
 			request.setAttribute("unvisible", true);
 		}
-		CategoryService categoryService = new CategoryService(); 
-		List<Category> categories =  categoryService.loadTopCategories();
 		
-		ArticleService articleService = new ArticleService(); 
-		List<Article> articles =  articleService.loadArticles(true);
-		Category category =  categoryService.loadCategory("articles");
+		Category category =  categoryService.loadCategory("articles"); 
+		articles   =  articleService.loadArticles(true);
 		try {
 			request.setAttribute("category", category);
 			request.setAttribute("articles", articles);
@@ -107,5 +119,7 @@ public class ArticleServlet {
 			throw new CustomException(Status.NOT_FOUND, "Something went wrong.");
 		}
 		log.info("End view");
+	
+		return Response.ok().build();
 	}
 }

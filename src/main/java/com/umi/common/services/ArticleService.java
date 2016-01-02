@@ -9,7 +9,6 @@ import lombok.extern.java.Log;
 import com.umi.common.data.Article;
 import com.umi.common.data.SitemapIndex;
 import com.umi.common.data.persist.DBService;
-import com.umi.common.data.persist.EnvironmentConfig;
 import com.umi.common.utils.StringUtil;
 @Log
 public class ArticleService extends DBService{
@@ -17,7 +16,7 @@ public class ArticleService extends DBService{
 		if(active){
 			return ofy().load().type(Article.class).filter( "active ==",active).limit(limit).offset(offset).order("-dateCreated").list();
 		}else{
-			return loadAll(Article.class);
+			return ofy().load().type(Article.class).limit(limit).offset(offset).order("-dateCreated").list();
 		}
 	}
 	public List<Article> loadArticles(Boolean active) {
@@ -41,43 +40,22 @@ public class ArticleService extends DBService{
 				article.setDateCreated( System.currentTimeMillis() );
 				article.setDatePublished(System.currentTimeMillis() );
 			}
+			article.setDescription(newarticle.getDescription());
+			article.setName(newarticle.getName());
 			article.setDateModified(System.currentTimeMillis() );
 			article.setPriority(newarticle.getPriority());
 			article.setActive(newarticle.getActive());
-		
-			article.setThumbnailUrl(newarticle.getThumbnailUrl());
-			article.setName(newarticle.getName());
 			article.setAbout(newarticle.getAbout());
-			article.setDescription(newarticle.getDescription());
-			
+			article.setThumbnailUrl(newarticle.getThumbnailUrl());
+			article.setAlt( newarticle.getAlt() );
+			article.setLink_title(newarticle.getLink_title());
+			article.setMeta_title(newarticle.getMeta_title());
+			article.setMeta_keywords(newarticle.getMeta_keywords());
+			article.setMeta_description(newarticle.getMeta_description());
 			article.setAds_horizont1(newarticle.getAds_horizont1());
 			article.setAds_horizont2(newarticle.getAds_horizont2());
 			article.setAds_side1(newarticle.getAds_side1());
 			article.setAds_side2(newarticle.getAds_side2());
-			
-			if(newarticle.getAlt()!=null){
-				article.setAlt( newarticle.getAlt() );
-			}else{
-				article.setAlt(EnvironmentConfig.getInstance().getMeta_icon()+ newarticle.getName() );
-			}
-			
-			if(newarticle.getMeta_title() != null){
-				article.setMeta_title(newarticle.getMeta_title());
-			}else{
-				article.setMeta_title(newarticle.getName()+EnvironmentConfig.getInstance().getMeta_title());
-			}
-			
-			if(newarticle.getMeta_keywords() != null){
-				article.setMeta_keywords(newarticle.getMeta_keywords());
-			}else{
-				article.setMeta_keywords(EnvironmentConfig.getInstance().getMeta_keywords()+ newarticle.getName() );
-			}
-			
-			if(newarticle.getMeta_description() != null){
-				article.setMeta_description(newarticle.getMeta_description());
-			}else if(newarticle.getAbout() != null){
-				article.setMeta_description(newarticle.getAbout() + EnvironmentConfig.getInstance().getMeta_description());
-			}
 			
 			article = save(article);
 			
