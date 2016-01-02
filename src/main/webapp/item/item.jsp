@@ -4,7 +4,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <%@include file="item_header.jsp"%>
 
-<div class="container">
+<div class="container"><%@include file="breadcrumb.jsp"%>
 	<div class="row">
 		<div class="thumbnail col-xs-12 col-sm-8 col-md-8" style="padding: 20px;">
 			<div id="item" itemtype="http://schema.org/SoftwareApplication" itemscope="">
@@ -20,13 +20,11 @@
 				</div>
 				
 				<div itemprop="description">${item.about}</div>
-		
+		   <c:set var="rating" value="${article.rating}" scope="request"/>
+			<%@include file="/common/rating.jsp"%>
 				</div>
-				
-				<%-- <c:set var="share_url"
-					value="http://www.freedownload.su/software/${item.slug}"
-					scope="request" /> --%>
-				<%-- @include file="/common/horizont_sosial_buttons.jsp" --%>
+					<c:set var="share_url" value="http://www.freedownload.su/article/${article.slug}" scope="request"/>
+				<%@include file="/common/horizont_sosial_buttons.jsp"%>
 				
 				<div class="bg-warning ads">
 					<c:if test="${empty unvisible }">
@@ -52,7 +50,7 @@
 				</div>
 				<div itemprop="review">${item.description}</div>
 				</article>
-			</div>
+			</div><%@include file="/common/comments.jsp"%>
 			<!-- /itemscope  -->
 		</div>
 		<!-- /.col-xs-12 col-sm-8 col-md-8 -->

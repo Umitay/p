@@ -42,7 +42,7 @@ import com.umi.common.services.ItemService;
 import com.umi.common.utils.CustomException;
 import com.umi.common.utils.StringUtil;
 
-@Path("/recipe")
+@Path("/software")
 @Log
 @PermitAll
 public class ItemServlet extends BaseServlet {

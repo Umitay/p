@@ -5,7 +5,7 @@
   <version>0.0.1-SNAPSHOT</version>
   <packaging>war</packaging>
    <properties>
-        <appengine.app.version>3</appengine.app.version>
+        <appengine.app.version>4</appengine.app.version>
         <appengine.target.version>1.9.25</appengine.target.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <appengine.app.id>free-applications</appengine.app.id>
