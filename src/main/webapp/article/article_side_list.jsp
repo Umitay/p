@@ -7,14 +7,15 @@
 				
 				<c:forEach items="${articles}" var="article" varStatus="loop" begin="0" end="2">
 					 <a href="/article/${article.slug}">
-						<div itemprop="itemListElement" class="thumbnail">
+						<div itemprop="itemListElement">
 						   	<c:if test="${!empty article.thumbnailUrl}">
 						        <img itemprop="image" class="img-responsive" src="${article.thumbnailUrl}" >
 						    </c:if>
 						    <div>
 						     <h4  itemprop="name"> <a href="/article/${article.slug}" itemprop="url">${article.name}</a></h4>
 						     <div id="description" itemprop="description">${article.about}</div>
-						    </div>	
+						    </div>
+						    <hr>	
 					 	</div>
 					 </a>
 	  			</c:forEach>

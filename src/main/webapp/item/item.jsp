@@ -6,7 +6,7 @@
 
 <div class="container"><%@include file="breadcrumb.jsp"%>
 	<div class="row">
-		<div class="thumbnail col-xs-12 col-sm-8 col-md-8" style="padding: 20px;">
+		<div class="col-xs-12 col-sm-8 col-md-8" style="padding: 20px;">
 			<div id="item" itemtype="http://schema.org/SoftwareApplication" itemscope="">
 				<link itemprop="SoftwareApplicationCategory" href="${item.schema_category}" type="text/html" />
 				<meta itemprop="url" content="/software/${item.slug}">
@@ -14,17 +14,21 @@
 				<div class="page-header">
 					<img itemprop="image" src="${item.thumbnailUrl}"  alt="${item.name} icon" title="${item.name} - Logo"/>
 				 	<h1 itemprop="name">${item.name} <span>${item.version}</span> <small>Бесплатно!</small></h1>
-				<div>
-					Опубликовано:
-					<time datetime="${item_datePublished}" itemprop="datePublished">${item_datePublished}</time>
+					<div itemprop="description">${item.about}</div>
 				</div>
-				
-				<div itemprop="description">${item.about}</div>
-		   <c:set var="rating" value="${article.rating}" scope="request"/>
-			<%@include file="/common/rating.jsp"%>
+				<!-- row -->
+				<div class="row">
+					<div class="col-xs-12 col-md-4">
+						Опубликовано:
+						<time datetime="${item_datePublished}" itemprop="datePublished">${item_datePublished}</time>
+						<c:set var="rating" value="${article.rating}" scope="request"/>
+						<%@include file="/common/rating.jsp"%>
+					</div>
+					<div class="col-xs-12 col-md-8">
+			   				<c:set var="share_url" value="http://www.freedownload.su/software/${article.slug}" scope="request"/>
+							<%@include file="/common/horizont_sosial_buttons.jsp"%>
+					</div>
 				</div>
-					<c:set var="share_url" value="http://www.freedownload.su/article/${article.slug}" scope="request"/>
-				<%@include file="/common/horizont_sosial_buttons.jsp"%>
 				
 				<div class="bg-warning ads">
 					<c:if test="${empty unvisible }">

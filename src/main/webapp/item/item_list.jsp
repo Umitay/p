@@ -7,7 +7,7 @@
 		<meta content=true itemprop="mainContentOfPage">
 		<meta content="Descending" itemprop="itemListOrder">
 		<c:forEach items="${items}" var="item">
-			<div itemprop="itemListElement" class="item_list_element thumbnail">
+			<div itemprop="itemListElement" class="item_list_element">
 				<div class="image-bolck col-xs-3 col-sm-3 col-md-3 col-lg-3">
 					<a href="/software/${item.slug}"> 
 					    <c:if test="${!empty item.thumbnailUrl}">
@@ -25,8 +25,7 @@
 							<div itemprop="description">${item.meta_description}</div>
 					</a>
 				</div>
-				
-				
+				<hr>
 			</div>
 		</c:forEach>
 	</section>
