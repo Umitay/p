@@ -302,8 +302,7 @@ public class ItemService extends DBService{
 	}
 	public Item saveItem(String slug, String name, String alt, String thumbnailUrl, String thumbnailUrl2,
 			String about, String description, String categories,
-			String totalTime, String recipeYield, String ingredients,
-			String nutrition,  Boolean active,
+			  Boolean active,
 			Long datePublished, Long dateCreated, Long dateModified,
 			String fb_share , String vk_share , String lj_share ,
 			String twitter_share, Boolean is_admin,

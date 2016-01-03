@@ -110,11 +110,7 @@ public class ItemAdminServlet {
 			 @DefaultValue("") @FormParam("ads_horizont1") String ads_horizont1, 
 			 @DefaultValue("") @FormParam("ads_horizont2") String ads_horizont2,
 			 @DefaultValue("") @FormParam("ads_side1") String ads_side1, 
-			 @DefaultValue("") @FormParam("ads_side2") String ads_side2,
-			 @DefaultValue("") @FormParam("totalTime") String totalTime,
-			 @DefaultValue("") @FormParam("recipeYield") String recipeYield,
-			 @DefaultValue("") @FormParam("ingredients") String ingredients,
-			 @DefaultValue("") @FormParam("nutrition") String  nutrition
+			 @DefaultValue("") @FormParam("ads_side2") String ads_side2
 			 ) throws IOException {
 		
 		log.info("Start save with slug: "+slug);
@@ -151,7 +147,7 @@ public class ItemAdminServlet {
 		}
 		
 		itemService.saveItem(slug,name,alt,thumbnailUrl,thumbnailUrl2,about,description,
-					categories,totalTime,recipeYield,ingredients,nutrition,
+					categories,
 					active,datePublished,dateCreated,dateModified,
 					fb_share, vk_share, lj_share, twitter_share,is_admin, link_title,
 					meta_title, meta_keywords, meta_description,
