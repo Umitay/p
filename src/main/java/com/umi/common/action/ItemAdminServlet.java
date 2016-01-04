@@ -86,7 +86,7 @@ public class ItemAdminServlet {
 	@POST
 	@Consumes("application/x-www-form-urlencoded")
 	@RolesAllowed({"ADMIN", "API", "SEO"})
-	public void save (	
+	public Boolean save (	
 			 @DefaultValue("") @FormParam("slug") String  slug,
 			 @DefaultValue("") @FormParam("name") String name,
 			 @DefaultValue("") @FormParam("alt") String alt,
@@ -141,20 +141,18 @@ public class ItemAdminServlet {
 		}
 		slug = StringUtil.generateSlug(name);
 		
-		Boolean is_admin = false;
-		if(request.getServerName().contains("appspot.com")){
-			is_admin = true;
-		}
+		
 		
 		itemService.saveItem(slug,name,alt,thumbnailUrl,thumbnailUrl2,about,description,
 					categories,
 					active,datePublished,dateCreated,dateModified,
-					fb_share, vk_share, lj_share, twitter_share,is_admin, link_title,
+					fb_share, vk_share, lj_share, twitter_share, link_title,
 					meta_title, meta_keywords, meta_description,
 					ads_horizont1,ads_horizont2, ads_side1, ads_side2);
 		  
 		response.sendRedirect("/n");
 		log.info("End save ");
+		return true;
 	}
 	@Path("/update")
 	@GET

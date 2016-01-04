@@ -305,7 +305,7 @@ public class ItemService extends DBService{
 			  Boolean active,
 			Long datePublished, Long dateCreated, Long dateModified,
 			String fb_share , String vk_share , String lj_share ,
-			String twitter_share, Boolean is_admin,
+			String twitter_share, 
 			String link_title, String meta_title,String meta_keywords, String meta_description, 
 			String ads_horizont1, String ads_horizont2, String ads_side1, String ads_side2) {
 		

@@ -24,18 +24,6 @@
 				<input type="text" value="${item_categories}" name="categories" class="form-control">
 				</div>
 				<div class="form-group">
-				<label>totalTime*</label>
-				<input type="text" value="${item.totalTime}" name="totalTime" class="form-control">
-				</div>
-				<div class="form-group">
-				<label>recipeYield*</label>
-				<input type="text" value="${item.recipeYield}" name="recipeYield" class="form-control">
-				</div>
-				<div class="form-group">
-				<label>nutrition*</label>
-				<input type="text" value="${item.nutrition}"  name="nutrition" class="form-control">
-				</div>
-				<div class="form-group">
 				<label>og:image</label>
 				<input type="text" value="${item.thumbnailUrl2}" name="thumbnailUrl2" class="form-control">
 				</div>
@@ -112,10 +100,7 @@
 				</div>
 		</div>
 		<div  class="col-sm-6 col-lg-6">
-		      <div class="form-group">
-				<label>ingredients*</label>
-				<textarea  name="ingredients" class="form-control">${item.ingredients}</textarea>
-				</div>
+		      
 				<div class="form-group">
 				<label>About*</label>
 				<textarea   name="about" class="form-control">${item.about}</textarea>
