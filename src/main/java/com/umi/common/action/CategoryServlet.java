@@ -30,6 +30,7 @@ import com.google.appengine.repackaged.com.google.api.client.util.Lists;
 import com.umi.common.data.Article;
 import com.umi.common.data.Category;
 import com.umi.common.data.Item;
+import com.umi.common.data.persist.EnvironmentConfig;
 import com.umi.common.services.ArticleService;
 import com.umi.common.services.CategoryService;
 import com.umi.common.services.ItemService;
@@ -59,37 +60,13 @@ public class CategoryServlet extends BaseServlet {
 		if(request.getServerName().contains("appspot.com")){
 			request.setAttribute("unvisible", true);
 		}
-		
+		request.setAttribute("site_name", EnvironmentConfig.getInstance().getSite_name() );
+		request.setAttribute("domain_url", "http://"+EnvironmentConfig.getInstance().getPublicDomain()+"/" );
+		request.setAttribute("domain", EnvironmentConfig.getInstance().getPublicDomain());
+	
 		Category category =  categoryService.loadCategory(slug); 
 		
 		if( category == null ){
-			if(StringUtil.is_rus(slug) ){
-				String s = StringUtil.generateSlug(slug);
-				if(s.equals("vypechka")){
-					slug = "baking-recipes"; 
-				}else if(s.equals("pitanie-dlya-detei")){
-					slug = "healthy-kids-recipes";
-				}else if(s.equals("sousy")){
-					slug = "sous";
-				}else if(s.equals("myasnye-blyuda")){
-					slug = "maicourse";
-				}else if(s.equals("salaty")){
-					slug = "salads";
-				}else if(s.equals("ptica-i-dich")){
-					slug = "chicken-recipes";
-				}else if(s.equals("ovoshchi-i-garniry")){
-					slug = "side-dishes";
-				}else if(s.equals("supy")){
-					slug = "healthy-soup-recipes";
-				}else if(s.equals("desert")){
-					slug = "dessert";
-				}else{
-					slug = s;
-				}
-				
-				return Response.status(Response.Status.MOVED_PERMANENTLY).location(new URI("/category/"+slug)).build();
-			}
-
 			response.setStatus(Response.Status.NOT_FOUND.getStatusCode());
 			request.getRequestDispatcher("/404.jsp").forward(request, response);
 			return Response.status(Response.Status.NOT_FOUND.getStatusCode()).build();
@@ -100,7 +77,7 @@ public class CategoryServlet extends BaseServlet {
 
 		String meta_description=category.getMeta_description();
 		if(meta_description == null || meta_description.length() <=0){
-			meta_description = category.getName()+" - Откройте для себя полезные, легкие и вкусные рецепты.";
+			meta_description = category.getName()+ EnvironmentConfig.getInstance().getMeta_description();
 		}
 		
 		String meta_title = category.getMeta_title();
@@ -117,9 +94,13 @@ public class CategoryServlet extends BaseServlet {
 			request.setAttribute("category", category);
 			request.setAttribute("categories", categories);
 			request.setAttribute("items", items);
-			request.setAttribute("meta_title",  meta_title );
+			
+			request.setAttribute("meta_title",  meta_title +" | "+EnvironmentConfig.getInstance().getSite_name());
 			request.setAttribute("meta_keywords", meta_keywords );
 			request.setAttribute("meta_description", meta_description);
+			
+			request.setAttribute("share_url", "http://"+EnvironmentConfig.getInstance().getPublicDomain()+"/category/"+category.getSlug() );
+			
 			request.getRequestDispatcher("/category/category.jsp").forward(request, response);
 			
 		} catch (ServletException | IOException e) {

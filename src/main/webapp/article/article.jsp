@@ -2,7 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
-<%@include file="article_header.jsp"%>
+<%@include file="/common/header.jsp"%>
 
 <div class="container">
 <%@include file="breadcrumb.jsp"%>
@@ -28,12 +28,11 @@
 				<div> Опубликовано: <time datetime="${article_datePublished}" itemprop="datePublished">${article_datePublished}</time></div>
 				<div itemprop="description">${article.about}</div>
 		
-				<c:set var="share_url" value="http://www.freedownload.su/article/${article.slug}" scope="request"/>
 				<%@include file="/common/horizont_sosial_buttons.jsp"%>
 			</div>
 		</div>
 		<div class="bg-warning ads">
-				<c:if test="${empty unvisible}">
+			<%--	<c:if test="${empty unvisible}">
 				<c:choose>
 				 	<c:when test="${empty article.ads_horizont1}">
 				    	<%@include file="/common/ad_horizont.jsp"%>
@@ -42,7 +41,7 @@
 				        ${article.ads_horizont1}
 				    </c:otherwise>
 				</c:choose>
-			    </c:if>
+			    </c:if>--%>
 			    <br>
 		</div>
 		
@@ -51,7 +50,7 @@
 		</div>
 		
 		<div class="bg-warning ads">
-				<c:if test="${empty unvisible}">
+			<%--	<c:if test="${empty unvisible}">
 				<c:choose>
 				 	<c:when test="${empty article.ads_horizont2}">
 				    	<%@include file="/common/ad_horizont.jsp"%>
@@ -60,7 +59,7 @@
 				        ${article.ads_horizont2}
 				    </c:otherwise>
 				    </c:choose>
-			    </c:if>
+			    </c:if>--%>
 		</div>
 		<%@include file="/common/comments.jsp"%>
 		</div>

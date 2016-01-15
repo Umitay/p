@@ -7,16 +7,17 @@
 <div class="container">
 <%@include file="breadcrumb.jsp"%>
 	<div class="jumbotron"  itemtype="http://schema.org/recipeCategory" itemscope="">
+	  <meta itemprop="url" content="${domain_url}category/${category.slug}">
 		<h1 itemprop="name">${category.name}</h1>
-		<c:if test="${empty unvisible}">
+		<%--<c:if test="${empty unvisible}">
 				${category.ads_jumbotron}
-	    </c:if>
+	    </c:if>--%>
 		<div itemprop="description">${category.description}</div>  
 	</div>
     
 	<%@include file="/item/item_list.jsp"%>
 	
-	<c:if test="${empty unvisible}">
+	<%--<c:if test="${empty unvisible}">
 			<c:choose>
 		    <c:when test="${empty category.ads_horizont2}">
 		    	<%@include file="/common/ad_horizont.jsp"%>
@@ -25,7 +26,7 @@
 		     ${category.ads_horizont2}
 		    </c:otherwise>
 		</c:choose>
-    </c:if>
+    </c:if>--%>
     
 </div>
 <%@include file="/common/bottom.jsp"%>

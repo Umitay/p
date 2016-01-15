@@ -48,6 +48,18 @@ public class HomepageServlet{
 			List<Category> categories =  categoryService.loadTopCategories(); 
 			Category category =  categoryService.loadCategory("hp");
 			
+			String meta_description=category.getMeta_description();
+			if(meta_description == null || meta_description.length() <=0){
+				meta_description = category.getName()+ EnvironmentConfig.getInstance().getMeta_description();
+			}
+			
+			String meta_title = EnvironmentConfig.getInstance().getSite_name();
+			
+			String meta_keywords = category.getMeta_keywords();
+			if(meta_keywords == null || meta_keywords.length() <= 0 ){
+				meta_keywords = category.getName();
+			}
+			
 			ItemService itemService = new ItemService(); 
 			List<Item>  items = itemService.loadItems(16,0);
 			
@@ -57,10 +69,21 @@ public class HomepageServlet{
 			if(request.getServerName().contains("appspot.com")){
 				request.setAttribute("unvisible", true);
 			}
+			
 			request.setAttribute("articles", articles);
 			request.setAttribute("category", category);
 			request.setAttribute("categories", categories);
 			request.setAttribute("items", items);
+			
+			request.setAttribute("meta_title",  meta_title);
+			request.setAttribute("meta_keywords", meta_keywords );
+			request.setAttribute("meta_description", meta_description);
+			
+			request.setAttribute("site_name", EnvironmentConfig.getInstance().getSite_name() );
+			request.setAttribute("domain_url", "http://"+EnvironmentConfig.getInstance().getPublicDomain()+"/" );
+			request.setAttribute("domain", EnvironmentConfig.getInstance().getPublicDomain());
+			request.setAttribute("share_url", "http://"+EnvironmentConfig.getInstance().getPublicDomain() );
+			
 			request.getRequestDispatcher("/index.jsp").forward(request, response);
 		} catch (ServletException | IOException e) {
 			throw new CustomException(Status.INTERNAL_SERVER_ERROR, e.getMessage());
@@ -146,7 +169,7 @@ public class HomepageServlet{
 			Date dCategory = new Date( category.getDateModified() );
 			if(!category.getSlug().equals("hp") && !category.getSlug().equals("articles")){
 			xml = xml +"<url>"
-				  +"<loc>"+ "http://"+EnvironmentConfig.getInstance().getPublicDomain()+"/category/"+category.getSlug() + "</loc>"
+				  +"<loc>"+ "http://"+EnvironmentConfig.getInstance().getPublicDomain()+ "/category/"+category.getSlug() + "</loc>"
 				  +"<lastmod>"+ DateFormatUtils.format(dCategory,"yyyy-MM-dd'T'HH:mm:ssZZ") + "</lastmod>"
 				  +"</url>";
 			}
@@ -211,13 +234,22 @@ public class HomepageServlet{
 	public String images(  ) {
 		return "";
 	}	
+	@Path("BingSiteAuth.xml")
+	@GET
+	@Produces(MediaType.APPLICATION_XML)
+	public String bing(  ) {
+		return "<?xml version='1.0'?>"
+				+"<users>"
+				+"<user>61115CAA93C618E0C823FFD5262EDD80</user>"
+				+"</users>";
+	}	
 	
 	@Path("robots.txt")
 	@GET
 	@Produces(MediaType.TEXT_PLAIN )
 	public String robots(  ) {
 
-		String txt ="User-agent: *\nDisallow: /n\nAllow: /\nHost: "+EnvironmentConfig.getInstance().getPublicDomain()+"\nSitemap: http://"+EnvironmentConfig.getInstance().getPublicDomain()+"/sitemap_index.xml";
+		String txt ="User-agent: *\nDisallow: /n\nDisallow:  /2015\n Disallow: /autor\nDisallow: /tag\nDisallow: /page\nDisallow: /comments\nAllow: /\nHost: "+EnvironmentConfig.getInstance().getPublicDomain()+"\nSitemap: http://"+EnvironmentConfig.getInstance().getPublicDomain()+"/sitemap_index.xml";
 		
 		return txt;
 	}	

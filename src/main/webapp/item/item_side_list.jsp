@@ -12,7 +12,7 @@
 							<c:if test="${!empty item.thumbnailUrl}">
 							 <a href="/software/${item.slug}"> <img alt="${item.alt}"
 								width="300" height="225" itemprop="image"
-								src="${item.thumbnailUrl}">
+								src="${item.thumbnailUrl}"> 
 							 </a>
 							 </c:if>
 							<div class="caption">

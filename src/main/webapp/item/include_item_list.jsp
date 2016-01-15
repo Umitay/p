@@ -6,7 +6,7 @@
 		<section itemscope="" itemtype="http://schema.org/ItemList">
 			<meta content=true itemprop="mainContentOfPage">
 
-			<h2 itemprop="name">Полезные рецепты для гурманов</h2>
+			<h2 itemprop="name">Полезные программы</h2>
 			<meta content="Descending" itemprop="itemListOrder">
 			
 			<!-- row of columns -->
@@ -15,14 +15,14 @@
 					<div itemprop="itemListElement" class="col-sm-6 col-lg-3">
 						<div class="thumbnail">
 							<c:if test="${!empty item.thumbnailUrl}">
-							 <a href="/recipe/${item.slug}"> <img alt="${item.alt}"
+							 <a href="${domain_url}software/${item.slug}"> <img alt="Полезная программа ${ empty item.alt ? item.name:item.alt}"
 								width="300" height="225" itemprop="image"
 								src="${item.thumbnailUrl}">
 							 </a>
 							 </c:if>
 							<div class="caption">
 								<h3 itemprop="name">
-									<a href="/recipe/${item.slug}" title="${item.link_title}"
+									<a href="${domain_url}software/${item.slug}" title="Скачать бесплатно последнюю версию ${ empty item.link_title ? item.name:item.link_title}"
 										itemprop="url">${item.name}</a>
 								</h3>
 								
@@ -39,14 +39,14 @@
 					<div itemprop="itemListElement" class="col-sm-6 col-lg-3">
 						<div class="thumbnail">
 							<c:if test="${!empty item.thumbnailUrl}">
-							 <a href="/recipe/${item.slug}"> <img alt="${item.alt}"
+							 <a href="${domain_url}software/${item.slug}"> <img alt="Полезная программа ${ empty item.alt ? item.name:item.alt}"
 								width="300" height="225" itemprop="image"
 								src="${item.thumbnailUrl}">
 							 </a>
 							 </c:if>
 							<div class="caption">
 								<h3 itemprop="name">
-									<a href="/recipe/${item.slug}" title="${item.link_title}"
+									<a href="${domain_url}software/${item.slug}" title="Скачать бесплатно последнюю версию ${ empty item.link_title ? item.name:item.link_title}"
 										itemprop="url">${item.name}</a>
 								</h3>
 							

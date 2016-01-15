@@ -23,22 +23,28 @@
 <link rel="shortcut icon" href="/static/logo.png" type="image/x-icon" />
 <!-- Latest compiled and minified JavaScript -->
 <script	src="http://netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
-<title>${article.name} | Полезные Приложения</title>
+<title>${article.name} | ${site_name}</title>
 <meta name="description" content="★ ${meta_description}"/>
 <meta name="keywords" content="${meta_keywords}">
+<link rel="publisher" href="https://plus.google.com/+Urrecipe1/posts"/>
 <meta property="og:locale" content="ru_RU" />
-<meta property="og:image" content="${empty article.thumbnailUrl2 ? article.thumbnailUrl: article.thumbnailUrl2}" />
+<meta property="og:image" content="${article.thumbnailUrl}" />
+<meta content="500" property="og:image:width" />
+<meta content="333" property="og:image:height" />
 <meta property="og:type" content="website" />
-<meta property="og:title" content="${meta_title} | Полезные Приложения" />
+<meta property="og:title" content="${meta_title} | ${site_name}" />
 <meta property="og:description" content="★ ${meta_description}" />
-<meta property="og:url" content="http://www.freedownload.su/article/${article.slug}" />
-<meta property="og:site_name" content="Полезные Приложения" />
+<meta property="og:url" content="${share_url}" />
+<meta property="og:site_name" content="${site_name}" />
+<meta property="fb:app_id" content="1659668160945449" /> 
 <meta name="twitter:card" content="summary_large_image"/>
 <meta name="twitter:description" content="★ ${meta_description}"/>
-<meta name="twitter:title" content="${meta_title} | Полезные Приложения"/>
+<meta name="twitter:title" content="${meta_title} | ${site_name}"/>
 <meta name="twitter:site" content="@umitay"/>
-<meta name="twitter:domain" content="www.freedownload.su"/>
+<meta name="twitter:domain" content="${domain}"/>
+<meta name='yandex-verification' content='6952aca4a0d06474' />
 <meta name="robots" value="index, follow" />
+<script	src="/static/share.js"></script>
 <!-- Вставьте этот тег в заголовке страницы или непосредственно перед закрывающим тегом основной части. -->
 	<script src="https://apis.google.com/js/platform.js" async defer>
 	  {lang: 'ru'}

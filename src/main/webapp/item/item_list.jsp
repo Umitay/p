@@ -4,7 +4,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <c:if test="${!empty items}">
 	<section itemscope="" itemtype="http://schema.org/ItemList">
-		<meta content=true itemprop="mainContentOfPage">
+		<meta content="false" itemprop="mainContentOfPage">
 		<meta content="Descending" itemprop="itemListOrder">
 		<c:forEach items="${items}" var="item">
 			<div itemprop="itemListElement" class="item_list_element">

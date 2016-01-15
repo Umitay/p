@@ -36,6 +36,7 @@ import com.umi.common.data.Article;
 import com.umi.common.data.Category;
 import com.umi.common.data.Item;
 import com.umi.common.data.X_CategoryItem;
+import com.umi.common.data.persist.EnvironmentConfig;
 import com.umi.common.services.ArticleService;
 import com.umi.common.services.CategoryService;
 import com.umi.common.services.ItemService;
@@ -69,6 +70,10 @@ public class ItemServlet extends BaseServlet {
 		}
 		log.info("item"+item);
 		
+		request.setAttribute("site_name", EnvironmentConfig.getInstance().getSite_name() );
+		request.setAttribute("domain_url", "http://"+EnvironmentConfig.getInstance().getPublicDomain()+"/" );
+		request.setAttribute("domain", EnvironmentConfig.getInstance().getPublicDomain());
+		
 		if( item == null ){
 			if(StringUtil.is_rus(slug) ){
 				slug = StringUtil.generateSlug(slug);
@@ -89,6 +94,20 @@ public class ItemServlet extends BaseServlet {
 				}
 			}
 			
+			String meta_description=item.getMeta_description();
+			if(meta_description == null || meta_description.length() <=0){
+				meta_description = item.getName()+ EnvironmentConfig.getInstance().getMeta_description();
+			}
+			
+			String meta_title = item.getMeta_title();
+			if(meta_title == null || meta_title.length() <= 0 ){
+				meta_title = item.getName();
+			}
+			String meta_keywords = item.getMeta_keywords();
+			if(meta_keywords == null || meta_keywords.length() <= 0 ){
+				meta_keywords = item.getName();
+			}
+			
 			Date d = new Date( item.getDatePublished() );
 			request.setAttribute("item_datePublished", DateFormatUtils.format(d,"yyyy-MM-dd"));
 			
@@ -100,9 +119,14 @@ public class ItemServlet extends BaseServlet {
 			request.setAttribute("item", item);
 			request.setAttribute("articles", articles);
 			request.setAttribute("items", items);
-			request.setAttribute("meta_title", item.getMeta_title());
-			request.setAttribute("meta_keywords", item.getMeta_keywords());
-			request.setAttribute("meta_description", item.getMeta_description());
+			
+			request.setAttribute("meta_title",  meta_title +" | "+EnvironmentConfig.getInstance().getSite_name());
+			request.setAttribute("meta_keywords", meta_keywords );
+			request.setAttribute("meta_description", meta_description);
+			request.setAttribute("thumbnailUrl", item.getThumbnailUrl());
+			
+			request.setAttribute("share_url", "http://"+EnvironmentConfig.getInstance().getPublicDomain()
+					+"/"+EnvironmentConfig.getInstance().getItem_type()+"/"+item.getSlug() );
 			
 			request.getRequestDispatcher("/item/item.jsp").forward(request, response);
 			

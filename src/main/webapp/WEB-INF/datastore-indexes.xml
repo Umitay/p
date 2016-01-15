@@ -9,10 +9,6 @@
         <property name="active" direction="asc"/>
         <property name="datePublished" direction="desc"/>
     </datastore-index>
-    <datastore-index kind="Item" ancestor="false" source="manual">
-        <property name="active" direction="asc"/>
-        <property name="dateCreated" direction="desc"/>
-    </datastore-index>
      <datastore-index kind="Article" ancestor="false" source="manual">
         <property name="active" direction="asc"/>
         <property name="dateModified" direction="asc"/>

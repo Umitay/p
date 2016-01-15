@@ -5,16 +5,16 @@
 <%@include file="/common/header.jsp"%>
 <div class="container">
 	<div class="jumbotron">
-		<h1>${category.name}</h1>
-		 <c:if test="${empty unvisible}">
+		<h1 itemprop="name">${category.name}</h1>
+		<%-- <c:if test="${empty unvisible}">
 			${category.ads_jumbotron}
-		</c:if>
-		${category.description}
+		</c:if>--%>
+		<div itemprop="description">${category.description}</div>  
 	</div>
 	<%@include file="/item/item_list.jsp"%>
-	
+	<%--
 	<c:if test="${empty unvisible}">
 			${category.ads_horizont1}
-	 </c:if>
+	 </c:if>--%>
 </div>
 <%@include file="/common/bottom.jsp"%>

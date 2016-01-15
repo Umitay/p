@@ -2,7 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
-<%@include file="item_header.jsp"%>
+<%@include file="/common/header.jsp"%>
 
 <div class="container"><%@include file="breadcrumb.jsp"%>
 	<div class="row">
@@ -12,7 +12,7 @@
 				<meta itemprop="url" content="/software/${item.slug}">
 				<meta itemprop="dateModified" content="${item_dateModified}">
 				<div class="page-header">
-					<img itemprop="image" src="${item.thumbnailUrl}"  alt="${item.name} icon" title="${item.name} - Logo"/>
+					<img itemprop="image" src="${item.thumbnailUrl}"  alt=" ${item.name} с фото" />
 				 	<h1 itemprop="name">${item.name} <span>${item.version}</span> <small>Бесплатно!</small></h1>
 					<div itemprop="description">${item.about}</div>
 				</div>
@@ -81,4 +81,4 @@
 	<!-- /.row -->
 </div>
 <!-- /.container -->
-<%@include file="/common/bottom.jsp"%>
+	<%@include file="item_bottom.jsp"%>
